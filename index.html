@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#1a2332">
+<title>⛰️ Watzmann Umrundung 2025</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e1520;
+    --bg2: #162030;
+    --bg3: #1e2d40;
+    --card: #1a2840;
+    --card2: #213250;
+    --accent: #e8a045;
+    --accent2: #f0c070;
+    --green: #4caf7d;
+    --red: #e05050;
+    --blue: #4a9eca;
+    --text: #e8edf5;
+    --text2: #a0b0c8;
+    --border: rgba(255,255,255,0.08);
+    --shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* ===== HEADER ===== */
+  .app-header {
+    background: linear-gradient(180deg, #0a1018 0%, var(--bg2) 100%);
+    padding: 50px 20px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .app-header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 180'%3E%3Cpolygon points='0,180 80,60 160,100 240,20 320,80 400,40 480,90 480,180' fill='%23162030'/%3E%3Cpolygon points='0,180 60,90 120,120 200,50 280,100 360,30 440,70 480,50 480,180' fill='%231a2840' opacity='0.6'/%3E%3C/svg%3E") center/cover;
+    opacity: 0.5;
+  }
+  .header-badge {
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #1a1000;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+  .header-title {
+    position: relative;
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 1.1;
+    color: #fff;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+  }
+  .header-title span { color: var(--accent); }
+  .header-meta {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 14px;
+  }
+  .header-meta-item {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 12px; color: var(--text2);
+    background: rgba(255,255,255,0.05);
+    padding: 5px 12px; border-radius: 20px;
+    border: 1px solid var(--border);
+  }
+  .header-meta-item .icon { font-size: 14px; }
+
+  /* ===== NAV ===== */
+  .bottom-nav {
+    position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 100%; max-width: 480px;
+    background: rgba(14,21,32,0.95);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid var(--border);
+    display: flex; z-index: 100;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .nav-btn {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 10px 4px; gap: 3px;
+    background: none; border: none; cursor: pointer;
+    color: var(--text2); font-family: 'DM Sans', sans-serif;
+    font-size: 10px; font-weight: 500;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-btn .nav-icon { font-size: 20px; }
+  .nav-btn.active { color: var(--accent); }
+  .nav-btn.active::before {
+    content: '';
+    position: absolute; top: 0; left: 20%; right: 20%; height: 2px;
+    background: var(--accent); border-radius: 0 0 4px 4px;
+  }
+
+  /* ===== PAGES ===== */
+  .page { display: none; padding: 20px 16px 100px; }
+  .page.active { display: block; }
+
+  /* ===== SECTION TITLE ===== */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 700;
+    color: var(--text); margin-bottom: 4px;
+  }
+  .section-sub { font-size: 13px; color: var(--text2); margin-bottom: 20px; }
+
+  /* ===== ETAPPEN CARDS ===== */
+  .day-tabs {
+    display: flex; gap: 8px; margin-bottom: 20px;
+  }
+  .day-tab {
+    flex: 1; padding: 10px 6px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; cursor: pointer;
+    text-align: center; transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .day-tab .dt-num { font-size: 18px; font-weight: 700; color: var(--text2); }
+  .day-tab .dt-label { font-size: 10px; color: var(--text2); margin-top: 2px; }
+  .day-tab.active {
+    background: linear-gradient(135deg, var(--accent) 0%, #c8781e 100%);
+    border-color: var(--accent);
+  }
+  .day-tab.active .dt-num, .day-tab.active .dt-label { color: #1a1000; }
+
+  .day-content { display: none; }
+  .day-content.active { display: block; }
+
+  .etappe-hero {
+    background: linear-gradient(135deg, var(--card) 0%, var(--card2) 100%);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .etappe-hero-top {
+    padding: 18px 18px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .etappe-date-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(232,160,69,0.15);
+    border: 1px solid rgba(232,160,69,0.3);
+    color: var(--accent); font-size: 11px; font-weight: 600;
+    padding: 4px 10px; border-radius: 20px; margin-bottom: 10px;
+  }
+  .etappe-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; color: #fff; font-weight: 700;
+    line-height: 1.2;
+  }
+  .etappe-route {
+    font-size: 12px; color: var(--text2); margin-top: 6px;
+    display: flex; align-items: center; gap: 4px; flex-wrap: wrap;
+  }
+  .etappe-route .arrow { color: var(--accent); }
+
+  .etappe-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    padding: 14px 10px;
+  }
+  .stat-item { text-align: center; }
+  .stat-icon { font-size: 18px; }
+  .stat-val { font-size: 14px; font-weight: 700; color: var(--text); margin-top: 2px; }
+  .stat-lbl { font-size: 9px; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .etappe-details {
+    display: flex; flex-direction: column; gap: 10px;
+    margin-bottom: 16px;
+  }
+  .detail-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 16px;
+  }
+  .detail-card h4 {
+    font-size: 12px; font-weight: 600; color: var(--accent);
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .detail-card p { font-size: 13px; color: var(--text2); line-height: 1.6; }
+
+  .terrain-tags {
+    display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px;
+  }
+  .terrain-tag {
+    font-size: 11px; font-weight: 500;
+    padding: 4px 10px; border-radius: 20px;
+    background: rgba(74,158,202,0.15); color: var(--blue);
+    border: 1px solid rgba(74,158,202,0.3);
+  }
+  .terrain-tag.warn {
+    background: rgba(232,160,69,0.15); color: var(--accent);
+    border-color: rgba(232,160,69,0.3);
+  }
+
+  /* ===== MAP ===== */
+  #map-container {
+    border-radius: 16px; overflow: hidden;
+    border: 1px solid var(--border);
+    margin-bottom: 14px;
+    position: relative;
+  }
+  #map { height: 340px; }
+  .map-controls {
+    display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap;
+  }
+  .map-ctrl-btn {
+    flex: 1; min-width: 100px;
+    padding: 10px 12px; border-radius: 10px;
+    background: var(--card); border: 1px solid var(--border);
+    color: var(--text2); font-size: 12px; font-weight: 500;
+    cursor: pointer; transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .map-ctrl-btn.active {
+    background: rgba(232,160,69,0.2); border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .hut-overlay {
+    display: none; margin-top: 14px;
+  }
+  .hut-overlay.visible { display: block; }
+  .hut-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  .hut-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent), #c8781e);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; flex-shrink: 0;
+  }
+  .hut-info h4 { font-size: 14px; font-weight: 600; color: var(--text); }
+  .hut-info .hut-alt { font-size: 11px; color: var(--accent); font-weight: 500; margin-top: 2px; }
+  .hut-info .hut-hours { font-size: 11px; color: var(--text2); margin-top: 4px; }
+  .hut-info .hut-food { font-size: 12px; color: var(--text2); margin-top: 6px; line-height: 1.5; }
+  .hut-info .hut-phone {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 11px; color: var(--blue); margin-top: 6px;
+    background: rgba(74,158,202,0.1); padding: 3px 8px;
+    border-radius: 8px; border: 1px solid rgba(74,158,202,0.2);
+  }
+
+  /* ===== PACKLISTE ===== */
+  .hiker-tabs {
+    display: flex; gap: 8px; margin-bottom: 20px;
+  }
+  .hiker-tab {
+    flex: 1; padding: 12px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; cursor: pointer;
+    text-align: center; transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .hiker-tab .ht-name { font-size: 15px; font-weight: 600; color: var(--text2); }
+  .hiker-tab .ht-prog { font-size: 11px; color: var(--text2); margin-top: 3px; }
+  .hiker-tab.active {
+    border-color: var(--green);
+    background: rgba(76,175,125,0.1);
+  }
+  .hiker-tab.active .ht-name { color: var(--green); }
+
+  .pack-category { margin-bottom: 24px; }
+  .pack-cat-title {
+    font-size: 11px; font-weight: 700; color: var(--accent);
+    text-transform: uppercase; letter-spacing: 1.5px;
+    margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .pack-cat-title::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+
+  .pack-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 14px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; margin-bottom: 6px;
+    transition: all 0.2s;
+  }
+  .pack-item.checked {
+    background: rgba(76,175,125,0.1);
+    border-color: rgba(76,175,125,0.3);
+  }
+  .pack-item-left {
+    display: flex; align-items: center; gap: 12px; flex: 1;
+  }
+  .pack-emoji { font-size: 20px; width: 28px; text-align: center; }
+  .pack-name { font-size: 14px; color: var(--text); font-weight: 400; }
+  .pack-item.checked .pack-name {
+    color: var(--text2); text-decoration: line-through;
+  }
+  .pack-note { font-size: 11px; color: var(--text2); margin-top: 1px; }
+
+  /* Toggle Switch */
+  .toggle-switch {
+    position: relative; width: 46px; height: 26px; flex-shrink: 0;
+    cursor: pointer;
+  }
+  .toggle-switch input { display: none; }
+  .toggle-track {
+    position: absolute; inset: 0;
+    background: var(--bg3); border-radius: 13px;
+    border: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+  .toggle-thumb {
+    position: absolute; top: 3px; left: 3px;
+    width: 18px; height: 18px;
+    background: var(--text2); border-radius: 50%;
+    transition: all 0.3s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+  input:checked + .toggle-track { background: var(--green); border-color: var(--green); }
+  input:checked ~ .toggle-thumb { left: 23px; background: #fff; }
+
+  .progress-bar-wrap {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 14px 16px; margin-bottom: 20px;
+  }
+  .progress-bar-top {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 10px;
+  }
+  .progress-bar-top .pb-name { font-size: 14px; font-weight: 600; }
+  .progress-bar-top .pb-count { font-size: 13px; color: var(--text2); }
+  .progress-bar { height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--green), #7ee0a8); border-radius: 3px; transition: width 0.4s ease; }
+
+  /* ===== WETTER / INFO ===== */
+  .info-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+  }
+  .info-card h3 {
+    font-size: 14px; font-weight: 600; color: var(--accent);
+    display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
+  }
+  .info-card p { font-size: 13px; color: var(--text2); line-height: 1.6; }
+  .info-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;
+  }
+  .info-grid-item {
+    background: var(--bg3); border-radius: 10px; padding: 10px 12px;
+  }
+  .info-grid-item .ig-val { font-size: 18px; font-weight: 700; color: var(--text); }
+  .info-grid-item .ig-lbl { font-size: 10px; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  .emergency-card {
+    background: linear-gradient(135deg, rgba(224,80,80,0.15), rgba(224,80,80,0.05));
+    border: 1px solid rgba(224,80,80,0.3);
+    border-radius: 16px; padding: 16px 18px; margin-bottom: 12px;
+  }
+  .emergency-card h3 { font-size: 14px; font-weight: 600; color: var(--red); display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .emergency-num {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 14px; background: rgba(224,80,80,0.1);
+    border-radius: 10px; margin-bottom: 6px;
+  }
+  .emergency-num .en-name { font-size: 13px; color: var(--text); font-weight: 500; }
+  .emergency-num .en-number {
+    font-size: 16px; font-weight: 700; color: var(--red);
+    text-decoration: none; font-variant-numeric: tabular-nums;
+  }
+
+  .checklist-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 12px 14px; margin-bottom: 8px;
+    display: flex; align-items: flex-start; gap: 10px;
+  }
+  .checklist-icon { font-size: 16px; margin-top: 1px; }
+  .checklist-text { font-size: 13px; color: var(--text2); line-height: 1.5; }
+  .checklist-text strong { color: var(--text); }
+
+  /* ===== OVERVIEW ===== */
+  .overview-hero {
+    background: linear-gradient(135deg, var(--card) 0%, var(--card2) 100%);
+    border: 1px solid var(--border);
+    border-radius: 20px; padding: 20px 18px;
+    margin-bottom: 16px; text-align: center;
+  }
+  .overview-hero h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px; color: #fff; margin-bottom: 6px;
+  }
+  .overview-hero p { font-size: 13px; color: var(--text2); margin-bottom: 16px; }
+  .overview-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+  }
+  .ov-stat {
+    background: var(--bg3); border-radius: 12px; padding: 12px 8px;
+  }
+  .ov-stat .ov-val { font-size: 20px; font-weight: 700; color: var(--accent); }
+  .ov-stat .ov-lbl { font-size: 10px; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 3px; }
+
+  .day-quick-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 14px 16px; margin-bottom: 10px;
+    display: flex; gap: 14px; align-items: center;
+    cursor: pointer; transition: border-color 0.2s;
+  }
+  .day-quick-card:active { border-color: var(--accent); }
+  .dq-day {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: linear-gradient(135deg, var(--accent), #c8781e);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-weight: 700; color: #1a1000; flex-shrink: 0;
+  }
+  .dq-day .dq-num { font-size: 20px; line-height: 1; }
+  .dq-day .dq-tag { font-size: 9px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .dq-info { flex: 1; }
+  .dq-info h4 { font-size: 14px; font-weight: 600; color: var(--text); }
+  .dq-info p { font-size: 12px; color: var(--text2); margin-top: 3px; }
+  .dq-stats {
+    display: flex; gap: 10px; margin-top: 6px;
+  }
+  .dq-stat { font-size: 11px; color: var(--text2); display: flex; align-items: center; gap: 3px; }
+  .dq-arrow { font-size: 18px; color: var(--text2); }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  /* Animations */
+  @keyframes fadeIn { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform: none; } }
+  .page.active { animation: fadeIn 0.3s ease; }
+
+  .badge-new {
+    display: inline-block;
+    background: var(--red); color: #fff;
+    font-size: 9px; font-weight: 700;
+    padding: 2px 6px; border-radius: 20px;
+    margin-left: 4px; vertical-align: middle;
+  }
+
+  .wetter-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(74,158,202,0.15); border: 1px solid rgba(74,158,202,0.2);
+    color: var(--blue); font-size: 11px; padding: 4px 10px;
+    border-radius: 20px; margin-bottom: 12px;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="app-header">
+  <div class="header-badge">🏔 Nationalpark Berchtesgaden</div>
+  <div class="header-title">Watzmann<br><span>Umrundung</span></div>
+  <div class="header-meta">
+    <div class="header-meta-item"><span class="icon">📅</span> 28.–30. Mai 2025</div>
+    <div class="header-meta-item"><span class="icon">👥</span> Oliver & Martin</div>
+  </div>
+</div>
+
+<!-- PAGES -->
+
+<!-- ===== PAGE: OVERVIEW ===== -->
+<div class="page active" id="page-home">
+  <br>
+  <div class="overview-hero">
+    <h2>⛰️ Die Umrundung</h2>
+    <p>3 Tage · 3 Etappen · Wimbachbrücke → Watzmannhaus → Wimbachgrießhütte → Rückkehr</p>
+    <div class="overview-stats">
+      <div class="ov-stat">
+        <div class="ov-val">~38</div>
+        <div class="ov-lbl">km gesamt</div>
+      </div>
+      <div class="ov-stat">
+        <div class="ov-val">2.600</div>
+        <div class="ov-lbl">Hm aufstieg</div>
+      </div>
+      <div class="ov-stat">
+        <div class="ov-val">mittel+</div>
+        <div class="ov-lbl">Schwierigkeit</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-quick-card" onclick="goToPage('page-etappen'); setDay(0)">
+    <div class="dq-day"><div class="dq-num">1</div><div class="dq-tag">Tag</div></div>
+    <div class="dq-info">
+      <h4>Wimbachbrücke → Watzmannhaus</h4>
+      <p>28. Mai 2025</p>
+      <div class="dq-stats">
+        <span class="dq-stat">⏱ 3,5 Std.</span>
+        <span class="dq-stat">↑ 1.296 Hm</span>
+        <span class="dq-stat">📏 7,5 km</span>
+      </div>
+    </div>
+    <div class="dq-arrow">›</div>
+  </div>
+
+  <div class="day-quick-card" onclick="goToPage('page-etappen'); setDay(1)">
+    <div class="dq-day"><div class="dq-num">2</div><div class="dq-tag">Tag</div></div>
+    <div class="dq-info">
+      <h4>Watzmannhaus → Wimbachgrießhütte</h4>
+      <p>29. Mai 2025</p>
+      <div class="dq-stats">
+        <span class="dq-stat">⏱ 6 Std.</span>
+        <span class="dq-stat">↑ 600 Hm</span>
+        <span class="dq-stat">📏 14 km</span>
+      </div>
+    </div>
+    <div class="dq-arrow">›</div>
+  </div>
+
+  <div class="day-quick-card" onclick="goToPage('page-etappen'); setDay(2)">
+    <div class="dq-day"><div class="dq-num">3</div><div class="dq-tag">Tag</div></div>
+    <div class="dq-info">
+      <h4>Wimbachgrießhütte → Wimbachbrücke</h4>
+      <p>30. Mai 2025</p>
+      <div class="dq-stats">
+        <span class="dq-stat">⏱ 2,5 Std.</span>
+        <span class="dq-stat">↓ 693 Hm</span>
+        <span class="dq-stat">📏 8 km</span>
+      </div>
+    </div>
+    <div class="dq-arrow">›</div>
+  </div>
+
+  <div class="info-card" style="margin-top:8px">
+    <h3>💡 Wichtige Hinweise</h3>
+    <p>Die Watzmann Umrundung ist keine Überschreitung – trotzdem alpines Gelände mit guter Kondition erforderlich. Stellenweise kommen die Hände zum Einsatz. Gutes Schuhwerk und Wanderstöcke empfohlen.</p>
+  </div>
+
+  <div class="info-card">
+    <h3>🅿️ Anfahrt & Parken</h3>
+    <p>Parkplatz Wimbachbrücke, Ramsau bei Berchtesgaden. A8 München–Salzburg → Ausfahrt Bad Reichenhall → Ramsau. <strong>Parkgebühr: 7 €/Tag.</strong> Frühzeitig ankommen – Plätze begrenzt!</p>
+  </div>
+</div>
+
+<!-- ===== PAGE: ETAPPEN ===== -->
+<div class="page" id="page-etappen">
+  <div class="section-title">Etappen</div>
+  <div class="section-sub">Alle Details zu den 3 Wandertagen</div>
+
+  <div class="day-tabs">
+    <div class="day-tab active" onclick="setDay(0)">
+      <div class="dt-num">1</div>
+      <div class="dt-label">Mi 28.5.</div>
+    </div>
+    <div class="day-tab" onclick="setDay(1)">
+      <div class="dt-num">2</div>
+      <div class="dt-label">Do 29.5.</div>
+    </div>
+    <div class="day-tab" onclick="setDay(2)">
+      <div class="dt-num">3</div>
+      <div class="dt-label">Fr 30.5.</div>
+    </div>
+  </div>
+
+  <!-- TAG 1 -->
+  <div class="day-content active" id="day-0">
+    <div class="etappe-hero">
+      <div class="etappe-hero-top">
+        <div class="etappe-date-badge">📅 Mittwoch, 28. Mai 2025</div>
+        <div class="etappe-title">Aufstieg zum<br>Watzmannhaus</div>
+        <div class="etappe-route">
+          <span>Wimbachbrücke (634 m)</span>
+          <span class="arrow">→</span>
+          <span>Stubenalm</span>
+          <span class="arrow">→</span>
+          <span>Mitterkaseralm</span>
+          <span class="arrow">→</span>
+          <span>Falzalm</span>
+          <span class="arrow">→</span>
+          <span>Watzmannhaus (1.930 m)</span>
+        </div>
+      </div>
+      <div class="etappe-stats">
+        <div class="stat-item">
+          <div class="stat-icon">⏱</div>
+          <div class="stat-val">3,5 h</div>
+          <div class="stat-lbl">Gehzeit</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">↑</div>
+          <div class="stat-val">1.296</div>
+          <div class="stat-lbl">Hm rauf</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">↓</div>
+          <div class="stat-val">—</div>
+          <div class="stat-lbl">Hm runter</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">📏</div>
+          <div class="stat-val">7,5 km</div>
+          <div class="stat-lbl">Distanz</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="etappe-details">
+      <div class="detail-card">
+        <h4>🥾 Wegbeschaffenheit</h4>
+        <div class="terrain-tags">
+          <span class="terrain-tag">Schotter & Forstweg</span>
+          <span class="terrain-tag warn">Steil ab km 2</span>
+          <span class="terrain-tag">Serpentinen</span>
+          <span class="terrain-tag warn">Felsstufen zur Falzalm</span>
+          <span class="terrain-tag">Gut markiert</span>
+        </div>
+        <p style="margin-top:10px">Start auf breitem Schotterweg, der von Anfang an ordentlich an Steilheit zunimmt. Nach der Stubenalm durch Bergwald, ab der Mitterkaseralm erstmals offenes Gelände. Zur Falzalm gibt es Holzstufen und erste Seilsicherungen. Letzter Abschnitt zum Watzmannhaus über Kehren – anspruchsvoll aber gut gesichert.</p>
+      </div>
+
+      <div class="detail-card">
+        <h4>🌄 Panorama & Highlights</h4>
+        <p>• Ab der <strong>Mitterkaseralm (1.408 m)</strong> erster Ausblick auf die Berchtesgadener Alpen<br>• Spektakuläre Aussicht auf den <strong>Watzmanngrat</strong> kurz vor dem Haus<br>• Tiefblick ins Wimbachtal<br>• Bei klarem Wetter: Blick bis zum <strong>Hochkalter</strong> und den Loferer Steinbergen<br>• Abends: Sonnenuntergang hinter dem Watzmann vom Watzmannhaus</p>
+      </div>
+
+      <div class="detail-card">
+        <h4>💡 Tipps für diesen Tag</h4>
+        <p>Frühstart empfohlen – 7–8 Uhr von der Wimbachbrücke los. Genug Wasser mitnehmen (bis zur Stubenalm keine Versorgung). Watzmannhaus <strong>unbedingt vorab reservieren</strong> – Telefon: +49 8652 964222. Vorlaufzeiten mehrere Wochen!</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAG 2 -->
+  <div class="day-content" id="day-1">
+    <div class="etappe-hero">
+      <div class="etappe-hero-top">
+        <div class="etappe-date-badge">📅 Donnerstag, 29. Mai 2025</div>
+        <div class="etappe-title">Abstieg ins Tal &<br>Wimbachgries</div>
+        <div class="etappe-route">
+          <span>Watzmannhaus (1.930 m)</span>
+          <span class="arrow">→</span>
+          <span>Wimbachbrücke (825 m)</span>
+          <span class="arrow">→</span>
+          <span>Wimbachschloss (937 m)</span>
+          <span class="arrow">→</span>
+          <span>Wimbachgrießhütte (1.327 m)</span>
+        </div>
+      </div>
+      <div class="etappe-stats">
+        <div class="stat-item">
+          <div class="stat-icon">⏱</div>
+          <div class="stat-val">6 h</div>
+          <div class="stat-lbl">Gehzeit</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">↑</div>
+          <div class="stat-val">600</div>
+          <div class="stat-lbl">Hm rauf</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">↓</div>
+          <div class="stat-val">1.200</div>
+          <div class="stat-lbl">Hm runter</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">📏</div>
+          <div class="stat-val">14 km</div>
+          <div class="stat-lbl">Distanz</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="etappe-details">
+      <div class="detail-card">
+        <h4>🥾 Wegbeschaffenheit</h4>
+        <div class="terrain-tags">
+          <span class="terrain-tag warn">Knackiger Abstieg zunächst</span>
+          <span class="terrain-tag">Breiter Talweg</span>
+          <span class="terrain-tag warn">Schuttreich (Gries)</span>
+          <span class="terrain-tag">Gut beschildert</span>
+          <span class="terrain-tag">Flach im Tal</span>
+        </div>
+        <p style="margin-top:10px">Der Tag startet mit einem knackigen Abstieg Richtung Wimbachbrücke – fast so tief wie gestern gestartet. Dann stetig aber moderat bergauf durch das beeindruckende Wimbachgries. Das Tal ist geprägt von gewaltigen Schuttmassen (Gries = Schutt), die vom Watzmann herabziehen – ein einzigartiges Naturschauspiel.</p>
+      </div>
+
+      <div class="detail-card">
+        <h4>🌄 Panorama & Highlights</h4>
+        <p>• Rückblick auf das <strong>Watzmannhaus</strong> beim Abstieg<br>• Gewaltige <strong>Schuttmassen des Wimbachgries</strong> – bis 300 m breit!<br>• Blick auf <strong>Hochkalter-Massiv</strong> und Watzmannwände<br>• Malerisches <strong>Wimbachschloss</strong> als perfekte Einkehr im Tal<br>• Die Hütte liegt pittoresk am Talschluss mit Panoramablick</p>
+      </div>
+
+      <div class="detail-card">
+        <h4>💡 Tipps für diesen Tag</h4>
+        <p>Einkehr am <strong>Wimbachschloss</strong> empfohlen (Mi–Mo 9–18 Uhr). Im Wimbachgries bei Gewitter Obacht – schroffe Wände, Steinschlaggefahr. Wanderstöcke beim langen Abstieg entlasten die Knie. Wimbachgrießhütte reservieren: +49 8657 344.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAG 3 -->
+  <div class="day-content" id="day-2">
+    <div class="etappe-hero">
+      <div class="etappe-hero-top">
+        <div class="etappe-date-badge">📅 Freitag, 30. Mai 2025</div>
+        <div class="etappe-title">Abstieg zurück zur<br>Wimbachbrücke</div>
+        <div class="etappe-route">
+          <span>Wimbachgrießhütte (1.327 m)</span>
+          <span class="arrow">→</span>
+          <span>Wimbachschloss (937 m)</span>
+          <span class="arrow">→</span>
+          <span>Wimbachbrücke (634 m)</span>
+        </div>
+      </div>
+      <div class="etappe-stats">
+        <div class="stat-item">
+          <div class="stat-icon">⏱</div>
+          <div class="stat-val">2,5 h</div>
+          <div class="stat-lbl">Gehzeit</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">↑</div>
+          <div class="stat-val">—</div>
+          <div class="stat-lbl">Hm rauf</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">↓</div>
+          <div class="stat-val">693</div>
+          <div class="stat-lbl">Hm runter</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">📏</div>
+          <div class="stat-val">8 km</div>
+          <div class="stat-lbl">Distanz</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="etappe-details">
+      <div class="detail-card">
+        <h4>🥾 Wegbeschaffenheit</h4>
+        <div class="terrain-tags">
+          <span class="terrain-tag">Hauptsächlich schotterig</span>
+          <span class="terrain-tag">Breiter Talweg</span>
+          <span class="terrain-tag warn">Zieht sich in die Länge</span>
+          <span class="terrain-tag">Nicht ausgesetzt</span>
+          <span class="terrain-tag">Entspannt</span>
+        </div>
+        <p style="margin-top:10px">Die letzte Etappe ist die leichteste – ein gemütlicher Abstieg durch das Wimbachtal zurück zur Wimbachbrücke. Der Weg ist breit, schotterig und gut markiert. Die letzten 8 km im Tal können sich aber nach 3 Tagen in den Beinen lang anfühlen – trotzdem genießt man noch einmal die Kulisse von Hochkalter und Watzmann.</p>
+      </div>
+
+      <div class="detail-card">
+        <h4>🌄 Panorama & Highlights</h4>
+        <p>• Letzter großer Blick auf die <strong>Watzmann-Südwände</strong><br>• Das <strong>Wimbachgries</strong> nochmals in voller Breite erleben<br>• Option: Wimbachklamm besichtigen (Naturdenkmal, ~1 €)<br>• Ankunft und wohlverdientes 🍺 am Parkplatz</p>
+      </div>
+
+      <div class="detail-card">
+        <h4>💡 Tipps für diesen Tag</h4>
+        <p>Kein Stress – nach dem Frühstück gemütlich starten. Letzter Einkehrstopp am Wimbachschloss. Bei Heimfahrt über Bad Reichenhall: lohnenswerter kurzer Stopp. Die Wimbachklamm (Eingang nahe Parkplatz) ist ein tolles Abschluss-Naturerlebnis.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAGE: KARTE ===== -->
+<div class="page" id="page-karte">
+  <div class="section-title">Karte</div>
+  <div class="section-sub">Route & Hütten im Überblick</div>
+
+  <div class="map-controls">
+    <button class="map-ctrl-btn active" id="btn-map-standard" onclick="switchMap('standard')">🗺 Standard</button>
+    <button class="map-ctrl-btn" id="btn-map-satellite" onclick="switchMap('satellite')">🛰 Satellit</button>
+    <button class="map-ctrl-btn" id="btn-map-topo" onclick="switchMap('topo')">🏔 Topo</button>
+  </div>
+
+  <div id="map-container">
+    <div id="map"></div>
+  </div>
+
+  <div class="map-controls" style="margin-top:6px">
+    <button class="map-ctrl-btn" id="btn-huetten" onclick="toggleHuetten()">🏠 Hütten anzeigen</button>
+    <button class="map-ctrl-btn" id="btn-location" onclick="getLocation()">📍 Mein Standort</button>
+  </div>
+
+  <div class="hut-overlay" id="hut-overlay">
+    <div class="section-title" style="font-size:18px;margin-bottom:12px">🏠 Hütten auf dem Weg</div>
+
+    <div class="hut-card">
+      <div class="hut-icon">🏔</div>
+      <div class="hut-info">
+        <h4>Watzmannhaus</h4>
+        <div class="hut-alt">📍 1.930 m · DAV Sektion München</div>
+        <div class="hut-hours">🕐 Mitte Mai – Mitte Oktober · Übernachtung möglich</div>
+        <div class="hut-food">🍽 Bayerische Hüttenküche: Gulasch, Kaiserschmarrn, Brotzeiten, Getränke. Lager & Zimmer.<br>📞 <a href="tel:+4986529640222" class="hut-phone">+49 8652 964222</a></div>
+      </div>
+    </div>
+
+    <div class="hut-card">
+      <div class="hut-icon">🌲</div>
+      <div class="hut-info">
+        <h4>Stubenalm</h4>
+        <div class="hut-alt">📍 ca. 1.100 m · Zwischenstopp Aufstieg</div>
+        <div class="hut-hours">🕐 Saisonal (Mai–Oktober) · Kein Schlafplatz</div>
+        <div class="hut-food">🍽 Brotzeit, Getränke, Kaffee – schöne Rast nach dem ersten steilen Stück</div>
+      </div>
+    </div>
+
+    <div class="hut-card">
+      <div class="hut-icon">🌾</div>
+      <div class="hut-info">
+        <h4>Mitterkaseralm</h4>
+        <div class="hut-alt">📍 ca. 1.408 m · Auf dem Weg zum Watzmannhaus</div>
+        <div class="hut-hours">🕐 Saisonal · Kein Schlafplatz</div>
+        <div class="hut-food">🍽 Zweite Einkehrmöglichkeit beim Aufstieg – Almprodukte, Getränke</div>
+      </div>
+    </div>
+
+    <div class="hut-card">
+      <div class="hut-icon">🏰</div>
+      <div class="hut-info">
+        <h4>Wimbachschloss</h4>
+        <div class="hut-alt">📍 937 m · Im Wimbachtal</div>
+        <div class="hut-hours">🕐 Anfang Mai – Ende Oktober, tägl. 9–18 Uhr</div>
+        <div class="hut-food">🍽 Kaffee, Kuchen, warme Mahlzeiten, Bier & Getränke. Beliebte Einkehr mitten im Wimbachgries. Atemberaubender Blick auf die Schuttmassen.<br><span class="hut-phone">📞 +49 8657 9839858</span></div>
+      </div>
+    </div>
+
+    <div class="hut-card">
+      <div class="hut-icon">⛺</div>
+      <div class="hut-info">
+        <h4>Wimbachgrießhütte</h4>
+        <div class="hut-alt">📍 1.327 m · NaturFreunde München</div>
+        <div class="hut-hours">🕐 Mitte Mai – Mitte Oktober · Übernachtung möglich</div>
+        <div class="hut-food">🍽 Regionale Spezialitäten, große Küche. Biergarten mit Blick aufs Wimbachgries. Lager & Zimmer verfügbar.<br><span class="hut-phone">📞 +49 8657 344</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAGE: PACKLISTE ===== -->
+<div class="page" id="page-pack">
+  <div class="section-title">Packliste</div>
+  <div class="section-sub">Oliver & Martin – 3-Tages-Tour</div>
+
+  <div class="hiker-tabs">
+    <div class="hiker-tab active" id="htab-oliver" onclick="setHiker('oliver')">
+      <div class="ht-name">🧍 Oliver</div>
+      <div class="ht-prog" id="prog-oliver-label">0 / 0 eingepackt</div>
+    </div>
+    <div class="hiker-tab" id="htab-martin" onclick="setHiker('martin')">
+      <div class="ht-name">🧍 Martin</div>
+      <div class="ht-prog" id="prog-martin-label">0 / 0 eingepackt</div>
+    </div>
+  </div>
+
+  <!-- FORTSCHRITT OLIVER -->
+  <div id="progress-oliver" class="progress-bar-wrap">
+    <div class="progress-bar-top">
+      <span class="pb-name">✅ Olivers Fortschritt</span>
+      <span class="pb-count" id="count-oliver">0 / 0</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="fill-oliver" style="width:0%"></div></div>
+  </div>
+
+  <!-- FORTSCHRITT MARTIN -->
+  <div id="progress-martin" class="progress-bar-wrap" style="display:none">
+    <div class="progress-bar-top">
+      <span class="pb-name">✅ Martins Fortschritt</span>
+      <span class="pb-count" id="count-martin">0 / 0</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="fill-martin" style="width:0%"></div></div>
+  </div>
+
+  <div id="packliste-oliver">
+  <!-- Wird durch JS generiert -->
+  </div>
+
+  <div id="packliste-martin" style="display:none">
+  <!-- Wird durch JS generiert -->
+  </div>
+</div>
+
+<!-- ===== PAGE: INFO ===== -->
+<div class="page" id="page-info">
+  <div class="section-title">Infos & Notfall</div>
+  <div class="section-sub">Alles Wichtige zur Tour</div>
+
+  <div class="emergency-card">
+    <h3>🚨 Notrufnummern</h3>
+    <div class="emergency-num">
+      <span class="en-name">🆘 Bergrettung</span>
+      <a href="tel:140" class="en-number">140</a>
+    </div>
+    <div class="emergency-num">
+      <span class="en-name">🚁 ÖAMTC Hubschrauber</span>
+      <a href="tel:140" class="en-number">140</a>
+    </div>
+    <div class="emergency-num">
+      <span class="en-name">🚑 Europäischer Notruf</span>
+      <a href="tel:112" class="en-number">112</a>
+    </div>
+    <div class="emergency-num">
+      <span class="en-name">🚓 Polizei</span>
+      <a href="tel:110" class="en-number">110</a>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <h3>☀️ Wetterinfos Mai</h3>
+    <p>Ende Mai im Berchtesgadener Land: typischerweise 8–18°C auf dem Watzmannhaus. Nachmittagsgewitter möglich – <strong>früh aufbrechen!</strong> Gutes Wetterfenster am Morgen nutzen. Aktuelle Bergwettervorhersage prüfen.</p>
+    <div class="info-grid">
+      <div class="info-grid-item">
+        <div class="ig-val">8–18°C</div>
+        <div class="ig-lbl">Watzmannhaus</div>
+      </div>
+      <div class="info-grid-item">
+        <div class="ig-val">14–22°C</div>
+        <div class="ig-lbl">Tal (Ramsau)</div>
+      </div>
+      <div class="info-grid-item">
+        <div class="ig-val">früh</div>
+        <div class="ig-lbl">Startzeit</div>
+      </div>
+      <div class="info-grid-item">
+        <div class="ig-val">⚠️</div>
+        <div class="ig-lbl">Gewitter nachmittags</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <h3>🦺 Sicherheitshinweise</h3>
+    <div style="display:flex;flex-direction:column;gap:6px;margin-top:4px">
+      <div class="checklist-card">
+        <span class="checklist-icon">⚡</span>
+        <span class="checklist-text"><strong>Gewitter:</strong> Bei Gewittern sofort Abstieg in den Wald. Gipfelnähe und freie Flächen meiden.</span>
+      </div>
+      <div class="checklist-card">
+        <span class="checklist-icon">🥾</span>
+        <span class="checklist-text"><strong>Schuhwerk:</strong> Knöchelhohe Bergschuhe mit guter Profilsohle. Keine Sneaker!</span>
+      </div>
+      <div class="checklist-card">
+        <span class="checklist-icon">💧</span>
+        <span class="checklist-text"><strong>Wasser:</strong> Mindestens 2 L/Person pro Tag mitnehmen. An Quellen nachfüllen.</span>
+      </div>
+      <div class="checklist-card">
+        <span class="checklist-icon">🗺</span>
+        <span class="checklist-text"><strong>Navigation:</strong> Offline-Karte herunterladen (z.B. Komoot/Maps.me). Keine Handyverbindung garantiert.</span>
+      </div>
+      <div class="checklist-card">
+        <span class="checklist-icon">☀️</span>
+        <span class="checklist-text"><strong>Sonne:</strong> Sonnencreme LSF 50+, Sonnenbrille (UV-Schutz), Kopfbedeckung. Auf 2.000 m deutlich intensiver!</span>
+      </div>
+      <div class="checklist-card">
+        <span class="checklist-icon">🤕</span>
+        <span class="checklist-text"><strong>Erste Hilfe:</strong> Pflaster, Blasenpflaster, Schmerzmittel, Wickelbandage im Rucksack.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <h3>📱 Nützliche Apps</h3>
+    <p>• <strong>Komoot</strong> – Offline-Karten & Navigation<br>• <strong>Bergfex</strong> – Bergwetter & Webcams<br>• <strong>Alpify</strong> – Notruf-App für die Berge<br>• <strong>Refuges.info</strong> – Hütten-Verfügbarkeit</p>
+  </div>
+
+  <div class="info-card">
+    <h3>🎒 Rucksack-Gewicht</h3>
+    <p>Für eine 3-Tages-Hüttentour inkl. Hüttenschlafsack und Wechselkleidung: <strong>8–12 kg</strong> anstreben. Weniger ist mehr – alles Unnötige zuhause lassen!</p>
+    <div class="info-grid" style="margin-top:12px">
+      <div class="info-grid-item">
+        <div class="ig-val">8–12 kg</div>
+        <div class="ig-lbl">Ideal</div>
+      </div>
+      <div class="info-grid-item">
+        <div class="ig-val">&gt;15 kg</div>
+        <div class="ig-lbl">Zu schwer!</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <h3>🏨 Reservierungen</h3>
+    <p>Beide Hütten <strong>JETZT sofort reservieren</strong> – besonders Watzmannhaus ist schnell ausgebucht (Vorlauf mehrere Wochen!)</p>
+    <div style="margin-top:10px;display:flex;flex-direction:column;gap:6px">
+      <div class="emergency-num" style="background:rgba(232,160,69,0.1)">
+        <span class="en-name">Watzmannhaus (28. Mai)</span>
+        <a href="tel:+4986529640222" style="color:var(--accent);font-size:14px;font-weight:700;text-decoration:none">+49 8652 964222</a>
+      </div>
+      <div class="emergency-num" style="background:rgba(232,160,69,0.1)">
+        <span class="en-name">Wimbachgrießhütte (29. Mai)</span>
+        <a href="tel:+4986573440" style="color:var(--accent);font-size:14px;font-weight:700;text-decoration:none">+49 8657 344</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="nav-btn active" onclick="goToPage('page-home')" id="nav-home">
+    <span class="nav-icon">🏠</span>
+    <span>Start</span>
+  </button>
+  <button class="nav-btn" onclick="goToPage('page-etappen')" id="nav-etappen">
+    <span class="nav-icon">📍</span>
+    <span>Etappen</span>
+  </button>
+  <button class="nav-btn" onclick="goToPage('page-karte')" id="nav-karte">
+    <span class="nav-icon">🗺</span>
+    <span>Karte</span>
+  </button>
+  <button class="nav-btn" onclick="goToPage('page-pack')" id="nav-pack">
+    <span class="nav-icon">🎒</span>
+    <span>Packliste</span>
+  </button>
+  <button class="nav-btn" onclick="goToPage('page-info')" id="nav-info">
+    <span class="nav-icon">ℹ️</span>
+    <span>Infos</span>
+  </button>
+</nav>
+
+<!-- Leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+// ===== NAVIGATION =====
+function goToPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  const navMap = {
+    'page-home': 'nav-home', 'page-etappen': 'nav-etappen',
+    'page-karte': 'nav-karte', 'page-pack': 'nav-pack', 'page-info': 'nav-info'
+  };
+  if (navMap[id]) document.getElementById(navMap[id]).classList.add('active');
+  if (id === 'page-karte' && !mapInitialized) initMap();
+  window.scrollTo(0, 0);
+}
+
+// ===== DAY TABS =====
+function setDay(index) {
+  document.querySelectorAll('.day-tab').forEach((t, i) => t.classList.toggle('active', i === index));
+  document.querySelectorAll('.day-content').forEach((c, i) => c.classList.toggle('active', i === index));
+}
+
+// ===== MAP =====
+let map, mapInitialized = false;
+let currentLayer, satelliteLayer, standardLayer, topoLayer;
+let huettenVisible = false;
+let huettenMarkers = [];
+
+function initMap() {
+  mapInitialized = true;
+  map = L.map('map', { zoomControl: true }).setView([47.548, 12.930], 12);
+
+  standardLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap', maxZoom: 18
+  });
+  satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution: '© Esri', maxZoom: 18
+  });
+  topoLayer = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenTopoMap', maxZoom: 17
+  });
+
+  standardLayer.addTo(map);
+  currentLayer = standardLayer;
+
+  // Route Tag 1: Wimbachbrücke → Watzmannhaus
+  const route1 = [[47.585, 12.875],[47.580, 12.880],[47.572, 12.885],[47.565, 12.893],[47.557, 12.900],[47.548, 12.912]];
+  // Route Tag 2: Watzmannhaus → Wimbachgrießhütte
+  const route2 = [[47.548, 12.912],[47.555, 12.898],[47.568, 12.882],[47.575, 12.870],[47.573, 12.865],[47.570, 12.858],[47.565, 12.852],[47.560, 12.850]];
+  // Route Tag 3: zurück
+  const route3 = [[47.560, 12.850],[47.568, 12.858],[47.575, 12.870],[47.580, 12.875],[47.585, 12.875]];
+
+  L.polyline(route1, {color: '#e8a045', weight: 4, opacity: 0.9}).addTo(map).bindPopup('Tag 1: Aufstieg zum Watzmannhaus');
+  L.polyline(route2, {color: '#4a9eca', weight: 4, opacity: 0.9}).addTo(map).bindPopup('Tag 2: Wimbachgries');
+  L.polyline(route3, {color: '#4caf7d', weight: 4, opacity: 0.9}).addTo(map).bindPopup('Tag 3: Abstieg');
+
+  // Start/Ziel
+  const startIcon = L.divIcon({html: '<div style="background:#e8a045;color:#1a1000;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:16px;border:2px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.4)">🅿</div>', iconSize:[32,32], className:''});
+  L.marker([47.585, 12.875], {icon: startIcon}).addTo(map).bindPopup('Parkplatz Wimbachbrücke (634 m)<br>Start & Ziel der Tour');
+
+  // Hütten-Marker (versteckt)
+  const huetten = [
+    {pos: [47.548, 12.912], name: 'Watzmannhaus', alt: '1.930 m', emoji: '🏔'},
+    {pos: [47.560, 12.850], name: 'Wimbachgrießhütte', alt: '1.327 m', emoji: '⛺'},
+    {pos: [47.575, 12.870], name: 'Wimbachschloss', alt: '937 m', emoji: '🏰'},
+    {pos: [47.572, 12.892], name: 'Stubenalm', alt: '~1.100 m', emoji: '🌲'},
+    {pos: [47.565, 12.893], name: 'Mitterkaseralm', alt: '1.408 m', emoji: '🌾'},
+  ];
+  huetten.forEach(h => {
+    const icon = L.divIcon({html:`<div style="background:var(--card,#1a2840);color:white;border-radius:10px;padding:3px 8px;font-size:12px;white-space:nowrap;border:1px solid rgba(255,255,255,0.2);box-shadow:0 2px 8px rgba(0,0,0,0.5)">${h.emoji} ${h.name}</div>`, className:''});
+    const m = L.marker(h.pos, {icon}).bindPopup(`<strong>${h.name}</strong><br>${h.alt}`);
+    huettenMarkers.push(m);
+  });
+}
+
+function switchMap(type) {
+  if (!mapInitialized) return;
+  if (currentLayer) map.removeLayer(currentLayer);
+  if (type === 'satellite') { satelliteLayer.addTo(map); currentLayer = satelliteLayer; }
+  else if (type === 'topo') { topoLayer.addTo(map); currentLayer = topoLayer; }
+  else { standardLayer.addTo(map); currentLayer = standardLayer; }
+  document.querySelectorAll('.map-ctrl-btn').forEach(b => {
+    b.classList.toggle('active', b.id === 'btn-map-' + type);
+  });
+}
+
+function toggleHuetten() {
+  if (!mapInitialized) return;
+  huettenVisible = !huettenVisible;
+  const btn = document.getElementById('btn-huetten');
+  const overlay = document.getElementById('hut-overlay');
+  if (huettenVisible) {
+    huettenMarkers.forEach(m => m.addTo(map));
+    btn.classList.add('active');
+    overlay.classList.add('visible');
+  } else {
+    huettenMarkers.forEach(m => map.removeLayer(m));
+    btn.classList.remove('active');
+    overlay.classList.remove('visible');
+  }
+}
+
+function getLocation() {
+  if (!mapInitialized) return;
+  if (navigator.geolocation) {
+    const btn = document.getElementById('btn-location');
+    btn.textContent = '📍 Ortung...';
+    navigator.geolocation.getCurrentPosition(pos => {
+      const latlng = [pos.coords.latitude, pos.coords.longitude];
+      map.setView(latlng, 14);
+      L.circleMarker(latlng, {radius:10, color:'#4a9eca', fillColor:'#4a9eca', fillOpacity:0.5}).addTo(map).bindPopup('Dein Standort').openPopup();
+      btn.textContent = '📍 Mein Standort';
+    }, () => { btn.textContent = '❌ Nicht verfügbar'; setTimeout(() => btn.textContent = '📍 Mein Standort', 2000); });
+  }
+}
+
+// ===== PACKLISTE =====
+const packItems = [
+  { cat: '🏕 Schlaf & Unterkunft', items: [
+    { e:'🛏', n:'Hüttenschlafsack', note:'Pflicht in allen Berghütten!' },
+    { e:'👂', n:'Oropax / Ohrstöpsel', note:'Mehrbettzimmer können laut sein' },
+    { e:'👁', n:'Schlafmaske', note:'Optional, aber empfohlen' },
+  ]},
+  { cat: '👕 Kleidung', items: [
+    { e:'🥾', n:'Bergschuhe (knöchelhoch)', note:'Wichtigste Ausrüstung überhaupt' },
+    { e:'🧦', n:'Wandersocken (3 Paar)', note:'Blasen vermeiden!' },
+    { e:'👖', n:'Wanderhose', note:'Wetterfest oder softshell' },
+    { e:'👕', n:'Funktions-T-Shirts (2–3)', note:'Schnell trocknend' },
+    { e:'🧥', n:'Fleece-Jacke oder Midlayer', note:'Für kühle Abende/Morgen' },
+    { e:'🌧', n:'Regenjacke', note:'Unbedingt wasserdicht' },
+    { e:'🧤', n:'Handschuhe', note:'Auch im Mai auf 2.000m kalt' },
+    { e:'🧢', n:'Sonnenhut / Cap', note:'Sonnenschutz wichtig' },
+    { e:'🥽', n:'Sonnenbrille', note:'UV400 Schutz' },
+    { e:'👙', n:'Wechselwäsche', note:'Mindestens 1 Satz für Hütte' },
+  ]},
+  { cat: '🎒 Ausrüstung', items: [
+    { e:'🎒', n:'Wanderrucksack (25–35 L)', note:'Gut angepasst & wasserfest' },
+    { e:'🦯', n:'Wanderstöcke', note:'Entlasten Knie erheblich!' },
+    { e:'🗺', n:'Wanderkarte (Papier)', note:'Kompass/Karte als Backup' },
+    { e:'🔦', n:'Stirnlampe + Ersatzbatterien', note:'Für Frühaufbruch' },
+    { e:'🧴', n:'Sonnencreme LSF 50+', note:'Höhensonne unterschätzen!' },
+    { e:'💊', n:'Lippenpflege mit LSF', note:'Wind und Sonne trocknen aus' },
+  ]},
+  { cat: '🍫 Verpflegung & Wasser', items: [
+    { e:'💧', n:'Trinkflaschen (2 L)', note:'Oder Trinksystem im Rucksack' },
+    { e:'🍫', n:'Energieriegel / Gels', note:'Für Notfälle zwischendurch' },
+    { e:'🥜', n:'Nüsse & Trockenfrüchte', note:'Ideale Wegverpflegung' },
+  ]},
+  { cat: '🩹 Gesundheit & Sicherheit', items: [
+    { e:'🩹', n:'Erste-Hilfe-Set', note:'Pflaster, Blasenpflaster, Binde' },
+    { e:'💊', n:'Schmerzmittel (Ibuprofen)', note:'Muskelkater, Kopfschmerzen' },
+    { e:'🤢', n:'Magentabletten', note:'Höhe kann Übelkeit auslösen' },
+    { e:'🦟', n:'Insektenspray', note:'Mücken im Mai aktiv' },
+    { e:'🚨', n:'Pfeife', note:'Notsignal: 6 x pfeifen = SOS' },
+    { e:'🏥', n:'Krankenversicherungskarte', note:'Und Notrufnummer speichern' },
+  ]},
+  { cat: '📱 Technik & Dokumente', items: [
+    { e:'📱', n:'Handy + Powerbank', note:'Offline-Karte vorab laden' },
+    { e:'🔌', n:'Ladekabel', note:'Hütten haben Steckdosen' },
+    { e:'📷', n:'Kamera / Weitwinkel', note:'Die Landschaft ist unglaublich' },
+    { e:'🪪', n:'Ausweis / Geldbörse', note:'Bar auf Hütten bevorzugt!' },
+  ]},
+  { cat: '🧴 Hygiene', items: [
+    { e:'🪥', n:'Zahnbürste & Zahnpasta', note:'' },
+    { e:'🧴', n:'Duschgel (klein)', note:'Hütten haben Duschen' },
+    { e:'🧻', n:'Taschentücher / Klopapier', note:'Notfall-Reserve' },
+    { e:'💊', n:'Persönliche Medikamente', note:'Vorrat für 4 Tage' },
+  ]},
+];
+
+const states = { oliver: {}, martin: {} };
+
+function buildPackliste(who) {
+  const container = document.getElementById('packliste-' + who);
+  container.innerHTML = '';
+  let total = 0, checked = 0;
+  packItems.forEach(cat => {
+    const catDiv = document.createElement('div');
+    catDiv.className = 'pack-category';
+    catDiv.innerHTML = `<div class="pack-cat-title">${cat.cat}</div>`;
+    cat.items.forEach((item, ii) => {
+      const key = cat.cat + '-' + ii;
+      if (!(key in states[who])) states[who][key] = false;
+      total++;
+      if (states[who][key]) checked++;
+      const div = document.createElement('div');
+      div.className = 'pack-item' + (states[who][key] ? ' checked' : '');
+      div.innerHTML = `
+        <div class="pack-item-left">
+          <span class="pack-emoji">${item.e}</span>
+          <div>
+            <div class="pack-name">${item.n}</div>
+            ${item.note ? `<div class="pack-note">${item.note}</div>` : ''}
+          </div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" ${states[who][key] ? 'checked' : ''} onchange="toggleItem('${who}','${key}',this.checked)">
+          <div class="toggle-track"></div>
+          <div class="toggle-thumb"></div>
+        </label>`;
+      catDiv.appendChild(div);
+    });
+    container.appendChild(catDiv);
+  });
+  updateProgress(who, checked, total);
+}
+
+function toggleItem(who, key, val) {
+  states[who][key] = val;
+  // Save to localStorage
+  try { localStorage.setItem('pack_' + who, JSON.stringify(states[who])); } catch(e){}
+  buildPackliste(who);
+}
+
+function updateProgress(who, checked, total) {
+  const pct = total > 0 ? Math.round(checked / total * 100) : 0;
+  document.getElementById('fill-' + who).style.width = pct + '%';
+  document.getElementById('count-' + who).textContent = checked + ' / ' + total;
+  document.getElementById('prog-' + who + '-label').textContent = checked + ' / ' + total + ' eingepackt';
+}
+
+function setHiker(who) {
+  ['oliver','martin'].forEach(h => {
+    document.getElementById('htab-' + h).classList.toggle('active', h === who);
+    document.getElementById('packliste-' + h).style.display = h === who ? 'block' : 'none';
+    document.getElementById('progress-' + h).style.display = h === who ? 'block' : 'none';
+  });
+}
+
+// Load saved state
+function loadSavedState() {
+  ['oliver','martin'].forEach(who => {
+    try {
+      const saved = localStorage.getItem('pack_' + who);
+      if (saved) states[who] = JSON.parse(saved);
+    } catch(e) {}
+  });
+}
+
+// Init
+loadSavedState();
+buildPackliste('oliver');
+buildPackliste('martin');
+</script>
+</body>
+</html>
